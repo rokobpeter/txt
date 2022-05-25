@@ -1,0 +1,23 @@
+show access-lists 
+show cdp neighbors 
+show interfaces 
+show ip dhcp binding
+show ip eigrp neighbors
+show ip interface brief
+show ip interface
+show ip nat translations
+show ip ospf database network
+show ip ospf interface
+show ip ospf neighbour
+show ip protocols 
+show ip route connected
+show ip route 
+show ip route ospf 
+show mac-address-table
+show port-security address
+show port-security interface 
+show port-security interface fastethernet 0/18
+show running-config 
+show startup-config 
+show version
+show vlan

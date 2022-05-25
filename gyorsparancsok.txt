@@ -1,0 +1,4 @@
+CTRL+SHIFT+6 - domain reset
+SHIFT+INS - beszúrás config
+WINDOWS+SHIFT+S - képernyő kivágás
+CTRL/RIGHT+DEL - CTRL+ALT+DEL

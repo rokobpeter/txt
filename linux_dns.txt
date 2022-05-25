@@ -1,0 +1,73 @@
+DNS szerver konfiguráció
+
+1.Szolgáltatáscsomag telepítése
+$ sudo apt update
+$ sudo apt install bind9
+
+2.Konfigurációs fájl szerkesztése 
+/etc/bind/named.conf.options
+/etc/resolve.conf
+
+3.Hálózatok figyelése
+$ nano /etc/bind/named.conf.options
+listen-on {
+192.168.10.0/24;
+192.168.20.0/24;
+192.168.30.0/24;
+192.168.40.0/24;
+192.168.50.0/24;
+};
+
+4.Továbbítók megadása
+/etc/bind/named.conf.options
+forwarders {
+192.168.10.10;
+};
+
+5.Névfeloldó rendszerfájl
+/etc/resolve.conf:
+nameserver 192.168.10.10
+search dental.com
+- az állomásnevek a tartománynév-kiegészítés nélkül elérhetők
+         
+6.DNS zóna létrehozása
+sudo nano /etc/bind/named.conf.local
+zone "com" {
+        type master;
+        file "/etc/bind/db.dental";
+};
+
+7.DNS rekordok létrehozása
+Sablonként használható fájl
+/etc/bind/db.local
+Nevezzük át a saját tartományukhoz
+$ sudo cp /etc/bind/db.local /etc/bind/db.dental
+
+$TTL    604800
+@       IN      SOA     localhost.  root.com. (
+                              2        		; Serial
+                         604800        	; Refresh
+                          86400        	; Retry
+                        2419200        	; Expire
+                         604800 )     	 ; Negative Cache TTL
+;
+hostname	class	type	value
+
+@          IN      NS        com.
+ns          IN      A          192.168.10.10  - a szerver a tartományon belül
+@          IN     AAAA   ::1
+dental  IN     A          192.168.10.10
+
+8.Folyamat indítása/újraindítása
+Remote Name Daemon Control
+rndc reload
+sudo service named start
+sudo service named restart
+
+9.Információgyűjtés
+Szerverfolyamat állapota
+$ service bind9 status
+$ service named status
+
+Konfiguráció ellenőrzése
+sudo named-checkconf

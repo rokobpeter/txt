@@ -1,0 +1,69 @@
+LINUX
+
+mkdir proba
+mkdir archiv
+mkdir proba/masolando
+sudo nano minta1.txt
+rm cd-R torlendo/
+cd archiv/
+cp ../proba/masolando/minta1.txt minta1.txt
+cd..
+mv minta1mv.txt mintafajl.txt
+sudo groupadd vendeg
+password: 1234
+ysudo groupadd helyi
+sudo useradd -m -g helyi -G vendeg minta1
+sudo passwd minta1
+password
+lsm
+madmin
+sudo chown minta1 mintafajl.txt
+sudo chmod u=rwx mintafajl.txt
+sudo chmod go=rx mintafajl.txtd ..
+ls
+sudo chmod g= rwx archiv/
+sudo chmod o=- archiv/
+---------------------
+MYSQL
+---------------------
+sudo apt update
+sudo apt install mysql-server -y
+ALTER USER ’root’@’localhost’ IDENTIFIED WITH mysql_native_password BY  ’12345’
+sudo mysql_secure_intallation utility
+no
+password
+yes
+no
+yes
+CREATE USER 'user'@'%' IDENTIFIED BY 'password';
+CREATE USER user@'%' IDENTIFIED BY '12345';
+GRANT ALL PRIVILEGES ON *.* TO user@'%';
+FLUSH PRIVILEGES
+exit
+sudo service mysql restart
+---------------------
+DHCP
+---------------------
+sudo apt install isc-dhcp-server -y
+ip addr
+cd /etc/default/
+sudo nano isc-dhcp-server
+INTERFACESv4="enp0s3"
+sudo nano /etc/dhcp/dhcpd.conf
+subnet 10.0.0.0 netmask 255.255.255.0 {
+ option domain-name-servers 10.0.0.10;
+ option routers 10.0.0.1;
+sudo service isc-dhcp-server restart
+
+netplan /etc/netplan/00-installer-config.yaml
+
+sudo adduser erika
+sudo usermod -a -G negyedik,SZ404 noemi
+sudo chmod 700 csenge
+sudo chmod 070 SZ405
+sudo chmod u-x bence
+sudo chmod g-x SZ404
+sudo chgrp kollegium kollegium
+
+ls
+ls-l

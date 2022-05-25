@@ -1,0 +1,55 @@
+WEB szerver konfiguráció
+
+1.Szolgáltatáscsomag telepítése
+$ sudo apt update
+$ sudo apt install apache2
+
+Konfigurációs mappák
+/var/www/dental
+/etc/apache2/sites-available/
+/etc/apache2/sites-enabled/
+
+2.Weblap létrehozása
+Saját weblap mappája
+$ mkdir /var/www/dental
+HTML fájl létrehozása
+$ nano /var/www/dental/index.html 
+
+3.Konfigurációs fájl szerkesztése
+Sablon konfigurációs fájl használata
+$ cp /etc/apache2/sites-available/000-default.conf dental.conf
+Saját konfigurációs fájl szerkesztése
+$ nano /etc/apache2/sites-available/dental.conf
+
+dental.conf
+$ ServerAdmin email-cím
+$ DocumentRoot /var/www/dental/ - az index.html helye
+$ ServerName dental.com - amivel elérhetjük a dental tartomány néven
+		
+4.Weboldal aktiválása
+/etc/apache2/sites-available - még nem elérhető, de létező webszerverek
+/etc/apache2/sites-enabled – elérhető webszerverek
+
+Inaktiváljuk a sablon Apache weblapot
+$ a2dissite 000-default.conf
+
+Elérés bekapcsolása
+a konfigurációs fájlt a sites-available mappából átmásoljuk
+a sites-enabled mappába
+
+vagy használjuk a következő parancsot, amely ezt elvégzi:
+$ a2ensite dental.conf
+
+5.DNS rekord az eléréshez
+A már konfigurált DNS szerveren a HTML fáljt hozzáadni a DNS rekordokhoz:
+/etc/bind/dental.com
+A weblap elérhető a dental.com címen
+
+6.Folyamat indítása/újraindítása
+sudo service apache2 start
+sudo service apache2 restart
+
+7.Információgyűjtés
+Szerverfolyamat állapota
+$ service apache2 status
+$ systemctl status apache2

@@ -1,0 +1,81 @@
+ls - aktuális mappa tartalmának kilistázása
+ls -l - aktuális mappa tartalmának kilistázása részletekkel (pl. jogosultságok és tulajdonosok)
+
+$mkdir teszt1 //Az aktuális mappában létrehoz egy új mappát teszt1 néven
+$mkdir /var/www/teszt1 //A gyökér mappából kiindulva a var/www mappában hozza létre a teszt1 mappát. Tehát teljes elérési út megadható bármelyik mappa is legyen az aktuális
+$mkdir teszt1/teszt2 //Az aktuális mappában található teszt1 mappán belül létrehoz egy új mappát teszt1 néven. Tehát relatív útvonallal is megadható
+
+$rmdir teszt1 //Az aktuális mappában kitörli a NEMÜRES teszt1 névű mappát.
+$rmdir /var/www/teszt1 //Teljes elérési út megadható.
+$rmdir teszt1/teszt2 //Relatív útvonallal is megadható.
+
+$rm –R teszt1 //Ha NEM üres a mappa, akkor a fájlokat is törlő rm parancs rekurzív futtatásával törölhető (teljes tartalmával együtt).
+Rekurzív futtatás: a parancs többször lefuttatja önmagát, amíg talál feldolgozni való adatot
+
+$cp teszt2 teszt1/ //Az aktuális mappában lévő teszt2 mappát (teljes tartalmával) átmásolja az aktuális mappában lévp teszt1 mappába.
+$cp /var/www/teszt1 /var/www/teszt2 //Teljes elérési út megadható. A teszt1 mappa másolásra kerül a /var/www/teszt2 mappába.
+$rmdir teszt1/teszt2 teszt3/ //Relatív útvonallal is megadható. Az aktuális mappában található teszt1-ben lévő teszt2 mappa másolásra kerül a az aktuális mappában lévő teszt3 mappába.
+
+$mv teszt2 teszt1 //Az aktuális mappában lévő teszt2 mappát átnevezi tesz1-re.
+$mv /var/www/teszt1 /var/www/teszt2 //Teljes elérési út megadható. 
+$mv teszt1 /var/www/teszt2 //Másik célmappa esetén áthelyezésre kerül a forrásmappa. A teszt1 mappa bekerül a /var/www/teszt2 mappába. 
+
+A nano program egy egyszerű szöveges szerkesztő (mint pl a notepad). Többek között a programok konfigurációs fáljlai szövegesek, ezért ideális a szekesztésükre.
+$nano teszt1.txt //teszt1.txt nevű fájl megnyitása szerkesztésre
+$nano /var/www/teszt1.txt //Teljes vagy relatív elérési út is megadható.
+
+A fájl vagy mappa tulajdonosi (létrehozó) jogköre átruházható másik felhasználóra:
+$chown user2 teszt.txt //A teszt.txt fájl tulajdonosa (létrehozója) a user2 nevű felhasználó lesz.
+A fájl vagy mappa csoport-tagsága beállítható:
+$chgrp group2 teszt.txt //A teszt.txt fájl csoportja a group2 nevű csoport lesz.
+
+A fájl vagy mappa jogosultságait a chmod paranccsal lehet megváltoztatni.
+pl. chmod u+rw teszt.txt
+
+Az első paraméter megadása:
+Első betű a jogkör rövidítése:
+u – user (létrehozó)
+g – group (csoport)
+o – other (mindenki más)
+
+Második karakter a műveletet adja meg:
++ – hozzáadunk jogosultságot
+- – visszavonunk jogosultságot
+= – a jogosultságlistát felülírjuk
+
+Harmadik karaktertől a jogosultságok betűjele:
+r – read (olvasás)
+w – write (írás)
+x – execute (futtatás)
+
+chmod u+rw teszt.txt //A létrehozónak az eddigi jogain felül olvasási (r) és írási (w) jogot adunk.
+chmod o-wx teszt.txt //A csoporttól elvesszük az írási (w) és futtatási (x) jogot.
+chmod o=rwx teszt.txt //Bármi is volt mindenki más eddigi jogosultsága, az új jogosultság teljes hozzá férés (rwx) lesz a „mindenki más” jogkör számára.
+
+A különböző hozzáféreseknek van egy hozzárandelt számuk is:
+
+read = 4
+write = 2
+execute = 1
+
+Ezen számok összegeként lehet megadni a jogosultságot:
+Ha valakinek csak olvasási (read) jogot akarunk adni, akkor az összeg 4.
+Ha írási (write) és olvasási (read) jogot akarunk adni, akor az összeg 4+2 = 6.
+
+Egy szám egy jogkörnek állítja be a hozzáférését.
+3 jogkör van.Tehát 3 egymás utáni számmal minden jogkör beállítható.
+
+A számok sorrendje:
+tulajdonos
+csoport
+mindenki más
+
+Tehát a 750 számsorozat meghatározza:
+7 = minden jog 4(r)+2(w)+1(x) a tulajdonosnak.
+5 = olvasási és futtatási jog 4(r)+1(x) a csoportnak.
+0 = semmilyen joga nincs a „mindenki más” jogkörnek.
+
+A teljes parancs:
+$chmod 750 teszt1.txt
+
+

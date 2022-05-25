@@ -1,0 +1,15 @@
+MMC - WINDOWS+R
+
+WINDOWS SERVER
+
+dsadd user ”cn=Mike Fitzmaurice,ou=People,dc=contoso,dc=com” -samid mike.fritz -pwd Abc123456
+dsadd group ”CN=Finance,OU=Groups,DC=Contoso,DC=com” -samid Finance -secgrp yes -scope g
+
+DN,objectClass,sAMAccountName,sn,givenName,userPrincipalName
+"cn=Lisa Andrews,ou=People,dc=contoso,dc=com",user,lisa.andrews,Lisa,Andrews,l.andrews@contoso.com
+"cn=David Jones,ou=People,dc=contoso,dc=com",user,david.jones,David,Jones,d.jones@contoso.com
+
+dsadd user ”CN=user1,OU=Gyártás,OU=Mérnökök,DC=minta,DC=helyi” -samid user1@minta.helyi 
+dsadd group ”CN=gyártók,OU=gyártás,OU=mérnökök,DC=minta,DC=helyi” -scope g -secgrp yes -members ”CN=user1,OU=gyártás,OU=mérnökök,DC=minta,DC=helyi”
+
+gpupdate /forca /boot

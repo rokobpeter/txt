@@ -1,0 +1,68 @@
+DHCP szerver konfiguráció lépései
+
+1.Szolgáltatáscsomag telepítése
+$ sudo apt update
+$ sudo apt install isc-dhcp-server
+
+2.Konfigurációs fájlok szerkesztése
+/etc/default/isc-dhcp-server
+/etc/dhcp/dhcpd.conf
+
+3.Kiszolgáló interfész (DHCPD) beállítása
+/etc/default/isc-dhcp-server
+       	Fájlban kell megadni, hogy melyik interfész (pl. eth0) várja a DHCP kéréseket
+INTERFACES="eth0"
+
+4.Alhálózat beállítása (DHCPD)
+Konfigurációs fájl szerkesztése
+nano /etc/dhcp/dhcpd.conf
+
+Tartománynév és névszerver megadása
+option domain-name ".com";
+option domain-name-servers;
+
+Alhálózatok megadása
+subnet 192.168.10.0 netmask 255.255.255.0 {
+     range 192.168.10.20 192.168.10.70;
+            option domain-name-servers 192.168.10.10;
+     option subnet-mask 255.255.255.0;      
+     option routers 192.168.10.1;
+     }
+
+subnet 192.168.20.0 netmask 255.255.255.0 {
+     range 192.168.20.20 192.168.20.70;
+            option domain-name-servers 192.168.10.10;
+     option subnet-mask 255.255.255.0;      
+     option routers 192.168.20.1;
+     }
+
+subnet 192.168.30.0 netmask 255.255.255.0 {
+     range 192.168.30.20 192.168.30.70;
+            option domain-name-servers 192.168.10.10;
+     option subnet-mask 255.255.255.0;      
+     option routers 192.168.30.1;
+     }
+
+subnet 192.168.40.0 netmask 255.255.255.0 {
+     range 192.168.40.20 192.168.40.70;
+            option domain-name-servers 192.168.10.10;
+     option subnet-mask 255.255.255.0;      
+     option routers 192.168.40.1;
+     }
+
+subnet 192.168.50.0 netmask 255.255.255.0 {
+     range 192.168.50.20 192.168.50.70;
+            option domain-name-servers 192.168.10.10;
+     option subnet-mask 255.255.255.0;      
+     option routers 192.168.50.1;
+     }
+
+5.Folyamat indítása/újraindítása
+$ sudo service isc-dhcp-server start
+$ sudo service isc-dhcp-server restart
+
+6.Információgyűjtés
+Szerverfolyamat állapota:
+$ service dhcpd status
+Kiosztott címek listája:
+nano /var/lib/dhcp/dhcpd.leases
